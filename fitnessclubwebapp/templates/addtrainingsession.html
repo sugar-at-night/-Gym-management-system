@@ -1,0 +1,181 @@
+<!-- ####### FITNESS MANAGEMENT SYSTEM #######
+#################################################### -->
+{% extends "base.html" %}
+
+{% block content %}
+
+<div  style="margin: 50px 50px 250px;">
+    <h5>Add Training</h2>
+    <div>
+        <form class="row g-3 needs-validation" novalidate action="/addtraining" method="post">
+            <div class="col-md-4">
+                <label for="name" class="form-label">Training Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-8">
+                <label for="discription" class="form-label">Description</label>
+                <input type="text" class="form-control" id="discription" name="discription" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-6" readonly>
+                <label for="discription" class="form-label">Trainer ID</label>
+                <input type="text" class="form-control" id="trainer_id" name="trainer_id" value={{trainerid}}>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="date" class="form-label">Amount</label>
+                <input type="number" class="form-control" id="amount" name="amount" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="date" class="form-label">Date</label>
+                <input type="date" class="form-control" id="date" name="date" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="time_start" class="form-label">Time Start</label>
+                <input type="datetime-local" class="form-control" id="time_start" name="time_start" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="time_end" class="form-label">Time End</label>
+                <input type="datetime-local" class="form-control" id="time_end" name="time_end" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div id="error-message" class="d-none alert alert-danger">
+                End time must be later than start time
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script>
+    // to make sure the date from each input is the same  
+    $(document).ready(function () {
+        // get the date input element
+        const $dateInput = $('#date');
+
+        // get the start and end time input elements
+        const $startTimeInput = $('#time_start');
+        const $endTimeInput = $('#time_end');
+
+        // set the initial min and max date for the start and end time inputs to match the date input
+        const dateValue = $dateInput.val();
+        const minDateValue = dateValue + 'T00:00';
+        const maxDateValue = dateValue + 'T23:59';
+        $startTimeInput.attr('min', minDateValue);
+        $startTimeInput.attr('max', maxDateValue);
+        $endTimeInput.attr('min', minDateValue);
+        $endTimeInput.attr('max', maxDateValue);
+
+        // add an event listener to the date input to update the min and max date for the start and end time inputs when the date is changed
+        $dateInput.on('input', function (event) {
+            const dateValue = event.target.value;
+            const minDateValue = dateValue + 'T00:00';
+            const maxDateValue = dateValue + 'T23:59';
+            $startTimeInput.attr('min', minDateValue);
+            $startTimeInput.attr('max', maxDateValue);
+            $endTimeInput.attr('min', minDateValue);
+            $endTimeInput.attr('max', maxDateValue);
+
+            // set the value of the start and end time inputs to the new date value
+            $startTimeInput.val(minDateValue);
+            $endTimeInput.val(minDateValue);
+        });
+
+        // hide the error message when the page loads
+        $('#error-message').addClass('d-none');
+    });
+
+
+    function validateTimeRange() {
+    // get the start and end time input elements
+    const $startTimeInput = $('#time_start');
+    const $endTimeInput = $('#time_end');
+
+    // get the time values from the input elements
+    const startTimeValue = $startTimeInput.val();
+    const endTimeValue = $endTimeInput.val();
+
+    // split the time values into date and time components
+    const startDate = startTimeValue.split('T')[0];
+    const startTime = startTimeValue.split('T')[1];
+    const endDate = endTimeValue.split('T')[0];
+    const endTime = endTimeValue.split('T')[1];
+
+    // combine the date and time components into ISO 8601 format strings
+    const startDateTime = new Date(`${startDate}T${startTime}`);
+    const endDateTime = new Date(`${endDate}T${endTime}`);
+
+    // check if the start time is earlier than the end time
+    if (endDateTime.getTime() <= startDateTime.getTime()) {
+      // if the start time is not earlier than the end time, clear the end time input and show an error message
+      $endTimeInput.val('');
+      $('#error-message').removeClass('d-none');
+
+    } else {
+      // if the start time is earlier than the end time, clear the error message
+      $endTimeInput[0].setCustomValidity('');
+      $('#error-message').addClass('d-none');
+    };
+  };
+
+  $(document).ready(function () {
+    // add an event listener to the time start input to validate the time range whenever it is changed
+    $('#time_start').on('input', validateTimeRange);
+
+    // add an event listener to the time end input to validate the time range whenever it is changed
+    $('#time_end').on('input', validateTimeRange);
+
+  });
+
+
+
+(function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+</script>
+{{super()}}
+{% endblock %}
+
+
+
+

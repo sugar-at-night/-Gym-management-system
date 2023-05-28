@@ -1,0 +1,69 @@
+<!-- ####### FITNESS MANAGEMENT SYSTEM #######
+#################################################### -->
+
+{% extends "base.html" %}
+{% block title %}
+    CLASSES
+{% endblock %}
+{% block content %}
+<!-- code in here to display a list of members-->
+<div  style="margin: 50px 50px 250px;">
+    <div>
+        <div class="col-auto">
+            <h5>CLASSES</h2>
+        </div>
+        <div class="row col-12">
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Available spaces</th>
+                    <th>
+                        {% if session['role'] == 'Admin' or session['role'] == 'Manager': %}
+                        <form method="get" action="/addclass">
+                            <button type="submit" class="btn btn-primary">Add</button>
+                        </form>
+                        {% endif %} 
+                    </th>
+                </tr>
+                {% for class in classlist %}
+                    <tr>
+                        <td>{{class[1]}}</td>
+                        <td>{{class[2]}}</td>
+                        <td>{{class[3]}}</td>
+                        <td>{{class[4]}}</td>
+                        <td>{{class[5]}}</td>
+                        <td>{{class[6]}}</td>
+                        <td>
+                            {% if session['role'] == 'Admin' or session['role'] == 'Manager': %} 
+                            <form method="post" action="/viewclassdetails"> 
+                                <input type="hidden" name="classid" value="{{class[0]}}">
+                                <button type="submit" class="btn btn-primary">Edit</button> 
+                            </form>
+                            {% elif session['role'] == 'Member': %} 
+                            <form method="post" action="/enrolclass">
+                                <input type="hidden" name="classid" value="{{class[0]}}">
+                                <button type="submit" class="btn btn-primary">Enrol</button>
+                            </form>
+                            {% endif %}
+
+                        </td>
+                        <td>
+                            {% if session['role'] == 'Admin' or session['role'] == 'Manager' %}
+                            <form method="post" action="/deletegroupclass">
+                                <input type="hidden" name="classid" value="{{class[0]}}">
+                                <button type="submit" class="btn btn-primary">delete</button>
+                            </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

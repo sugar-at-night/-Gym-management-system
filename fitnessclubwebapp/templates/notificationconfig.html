@@ -1,0 +1,277 @@
+<!-- ####### FITNESS MANAGEMENT SYSTEM #######
+#################################################### -->
+{% extends "base.html" %}
+
+{% block content %}
+<div style="margin: 50px 50px 250px;">
+  <div>
+    <h5>NOTIFICATION</h5>
+  </div>
+  <div>
+    <!-- Tabs navs -->
+  <ul class="nav nav-tabs mb-1" id="ex1" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a
+        class="nav-link active"
+        id="ex1-tab-1"
+        data-mdb-toggle="tab"
+        href="#ex1-tabs-1"
+        role="tab"
+        aria-controls="ex1-tabs-1"
+        aria-selected="true"
+        >Config</a
+      >
+    </li>
+    <li class="nav-item" role="presentation">
+      <a
+        class="nav-link"
+        id="ex1-tab-2"
+        data-mdb-toggle="tab"
+        href="#ex1-tabs-2"
+        role="tab"
+        aria-controls="ex1-tabs-2"
+        aria-selected="false"
+        >Notification logs</a
+      >
+    </li>
+    <form class="d-flex input-group w-auto" method="get" action="/refresh">
+      <button class="btn btn-outline-primary" type="submit">
+        <i class="fas fa-refresh"></i>
+      </button>
+    </form>
+  </ul>
+    <!-- Tabs navs -->
+
+    <!-- Tabs content -->
+    <div class="tab-content" id="ex1-content">
+      <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+        <table class="table">
+          <tr>
+            <th>Notification Type</th>
+            <th>Recipient</th>
+            <th>Schedule</th>
+            <th>Chennel</th>
+            <th>Status</th>
+          </tr>
+          <tbody>
+            {% for config in notificationconfiglist %}
+            <tr>
+              <td>{{config[1]}}</td>
+              <td>{{config[2]}}</td>
+              <td>{{config[3]}}</td>
+              <td>{{config[4]}}</td>
+              <td>
+                {% if config[5] == 1: %}
+                <span class="badge badge-success rounded-pill d-inline">Active</span>
+                {% else %}
+                <span class="badge badge-warning rounded-pill d-inline">Inactive</span>
+                {% endif %}
+              </td>
+              <td>
+                <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-whatever="{{config}}"
+                  data-mdb-target="#configModal">
+                  Edit
+                </button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+        <table class="table">
+          <tr>
+            <th>Notification Type</th>
+            <th>Recipient</th>
+            <th>Chennel</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
+          <tbody>
+            {% for log in notificationloglist %}
+            <tr>
+              <td>{{log[0]}}</td>
+              <td>{{log[1]}}</td>
+              <td>{{log[2]}}</td>
+              <td>
+                {% if log[3] == 'Success': %}
+                <span class="badge badge-success rounded-pill d-inline">Success</span>
+                {% else %}
+                <span class="badge badge-warning rounded-pill d-inline">Error</span>
+                {% endif %}
+              </td>
+              <td>{{log[4]}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Tabs content -->
+    </ul>
+  </div>
+  <div>
+    <!-- Modal -->
+    <div class="modal fade" id="configModal" tabindex="-1" aria-labelledby="configModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="configModalLabel">Edit </h5>
+            <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form method="post" class="needs-validation" id="configform" action="/editnotificationconfig">
+              <div class="input-group mb-3">
+                <label class="input-group-text" for="recipient-type">Recipient</label>
+                <select required id="recipient-type" name="recipient-type" class="form-select"
+                  aria-label="Default select example">
+                  <option selected>Choose...</option>
+                  <option value="1">Admin/Manager</option>
+                  <option value="2">Trainer</option>
+                  <option value="3">Member</option>
+                </select>
+              </div>
+              <div class="input-group mb-3">
+                <label class="input-group-text" for="schedule-type">Schedule</label>
+                <select required id="schedule-type" name="schedule-type" class="form-select"
+                  aria-label="Default select example">
+                  <option selected>Choose...</option>
+                  <option value="1">On Event</option>
+                  <option value="2">Day Before</option>
+                  <option value="3">Day After</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="days-value" class="col-form-label">Days:</label>
+                <input type="number" required id="days-value" name="days-value" class="form-control">
+              </div>
+              <div class="input-group mb-3">
+                <label class="input-group-text" for="channel-type">Channel</label>
+                <select required id="channel-type" name="channel-type" class="form-select"
+                  aria-label="Default select example">
+                  <option selected>Choose...</option>
+                  <option value="1">Email</option>
+                  <option value="2">SMS</option>
+                  <option value="3">Site Notification</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="subject-text" class="col-form-label">Subject:</label>
+                <input type="text" required id="subject-text" name="subject-text" class="form-control">
+              </div>
+              <div class="mb-3">
+                <label for="body-text" class="col-form-label">Body:</label>
+                <textarea required class="form-control" name="body-text" id="body-text"></textarea>
+              </div>
+              <div class="input-group mb-3">
+                <label class="input-group-text" for="status">Status:</label>
+                <select required id="status" class="form-select" name="status" aria-label="Default select example">
+                  <option selected>Choose...</option>
+                  <option value="1">Active</option>
+                  <option value="0">Inactive</option>
+                </select>
+              </div>
+              <div class="modal-footer">
+                <input type="hidden" name="configid" id="configid" value="">
+                <input type="hidden" name="notificationtype" id="notificationtype" value="">
+                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                <button type="submit" id="saveconfig" class="btn btn-primary">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+  var configModal = document.getElementById('configModal')
+  var submit = document.getElementById('saveconfig')
+  const forms = document.getElementById('configform');
+  var config = {}
+
+  submit.addEventListener('click', function (event) {
+    console.log("submit")
+    forms.addEventListener('submit', function (event) {
+    if (!forms.checkValidity()) {
+      event.preventDefault()
+      event.stopPropagation()
+    }
+    forms.classList.add('was-validated')
+  }, false)
+    
+  })
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+
+
+  configModal.addEventListener('show.mdb.modal', function (event) {
+  // Button that triggered the modal
+  var button = event.relatedTarget
+  // Extract info from data-bs-* attributes
+  var currentconfig = button.getAttribute('data-mdb-whatever')
+  var currentconfig = currentconfig.replace('(',"").replace(')',"").replace(/'/g, "").split(', ')
+  console.log(currentconfig[0])
+  config = {
+    configid: currentconfig[0],
+    notificationtype: currentconfig[1],
+    recipient: currentconfig[2],
+    schedule: currentconfig[3],
+    channel: currentconfig[4],
+    status: currentconfig[5],
+    subject: currentconfig[6],
+    body: currentconfig[7],
+    days: currentconfig[8]
+  }
+
+  var modalRecipient = configModal.querySelector('#recipient-type')
+  var modalSchedule = configModal.querySelector('#schedule-type')
+  var modalChannel = configModal.querySelector('#channel-type')
+  var modalSubject = configModal.querySelector('#subject-text')
+  var modalBody = configModal.querySelector('#body-text')
+  var modalStatus = configModal.querySelector('#status')
+  var modalConfigId = configModal.querySelector('#configid')
+  var modalNotificationType = configModal.querySelector('#notificationtype')
+  var modalDays = configModal.querySelector('#days-value')
+
+  modalRecipient.value = config.recipient == 'Admin/Manager' ? 1 : config.recipient == 'Trainer' ? 2 : 3
+  modalSchedule.value = config.schedule == 'On Event' ? 1 : config.schedule == 'Day Before' ? 2 : 3
+  modalChannel.value = config.channel == 'Email' ? 1 : config.channel == 'SMS' ? 2 : 3
+  modalSubject.value = config.subject
+  modalBody.value = config.body
+  modalStatus.value = config.status == '1' ? 1 : 0
+  modalConfigId.value = config.configid
+  modalNotificationType.value = config.notificationtype
+  modalDays.value = config.days
+
+  // Update the modal's content.
+  var modalTitle = configModal.querySelector('.modal-title')
+  var modalBodyInput = configModal.querySelector('.modal-body input')
+  modalTitle.textContent = modalTitle.textContent + ' ' + config.notificationtype
+
+  configModal.addEventListener('hide.mdb.modal', function (event) {
+    console.log("hide")
+    config = {}
+    modalTitle.textContent = "Edit"
+  })
+})
+</script>
+{% endblock %}
+
+
+
+

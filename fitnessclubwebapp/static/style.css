@@ -1,0 +1,273 @@
+#index {
+    display: block;
+}
+
+.section-bg {
+    position: relative;
+    height: 500px;
+    width: 100%;
+    background-image: url(../static/images/danielle-cerullo.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+}
+
+.tittle {
+    color: rgb(211, 109, 36);
+    text-align: center;
+    display: block;
+    /* Make sure the element is a block element */
+    margin: 100px;
+    /* Center horizontally */
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.section-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    padding: 20px;
+    background-color: rgb(205, 175, 140, 0.3);
+    color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+
+.gym-section {
+    background-color: #f9f9f9;
+    padding: 60px 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.col-md-4 {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.col-md-4 img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.col-md-4 h3 {
+    margin-top: 20px;
+}
+
+.col-md-4 p {
+    margin-bottom: 20px;
+}
+
+#personal-trainers {
+    background-color: #f7f7f7;
+    padding: 80px 0;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 60px;
+}
+
+.card {
+    border: none;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+    border-radius: 50%;
+}
+
+.card-body {
+    text-align: center;
+}
+
+.card-title {
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+
+.equipments {
+    margin: 80px 50px 50px;
+}
+
+.fitness-programs {
+    background-color: #f5f5f5;
+    padding: 60px 0;
+}
+
+.fitness-programs img {
+    width: 500px;
+}
+
+.fitness-programs a {
+    color: rgb(211, 109, 36);
+}
+
+.fitness-programs .section-title:hover a {
+    color: rgb(205, 175, 140);
+}
+
+
+.testimonial {
+    position: relative;
+    background-image: url(../static/images/background.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+    text-align: center;
+    margin: 50px;
+}
+
+.testimonial-title {
+    text-align: center;
+    margin: 50px;
+}
+
+.testimonial-title h3 {
+    display: inline-block;
+    font-size: 36px;
+    font-weight: bold;
+    margin: 0 20px;
+}
+
+.testimonial-title i {
+    font-size: 36px;
+    color: #ccc;
+}
+
+.testimonial p {
+    font-size: 18px;
+    font-style: italic;
+    margin-bottom: 30px;
+}
+
+.testimonial h5 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+
+.qa_area textarea,
+.qa_area input {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #fff;
+    background-color: transparent;
+    color: #fff;
+    padding: 16px 22px;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.qa_area input {
+    height: 40px;
+}
+
+.qa_area textarea {
+    height: 200px;
+}
+
+.qa_form {
+    font-size: 18px;
+}
+
+.submit_btn {
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    background-color: rgb(211, 109, 36);
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 30px;
+}
+
+.qa_area {
+    background-color: #212a39;
+    color: #fff;
+    padding: 90px 80px;
+}
+
+.qa_tittle {
+    color: rgb(211, 109, 36);
+    line-height: 42px;
+    padding-top: 30px;
+    padding-bottom: 50px;
+}
+
+.qa_words {
+    font-size: 24px;
+    line-height: 42px;
+    padding-bottom: 50px;
+}
+
+.qa_container {
+    display: flex;
+    flex-direction: row;
+}
+
+.qa_intro {
+    flex: 1;
+}
+
+.qa_form {
+    flex: 1;
+}
+
+
+.floating-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+}
+
+.floating-icon a {
+    display: block;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #007bff;
+    text-align: center;
+    line-height: 60px;
+    font-size: 24px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.floating-icon a:hover {
+    background-color: #0069d9;
+}
+
+.fa {
+    display: inline-block;
+    margin-top: 18px;
+}

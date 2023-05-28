@@ -1,0 +1,52 @@
+<!-- ####### FITNESS MANAGEMENT SYSTEM #######
+#################################################### -->
+
+{% extends "base.html" %}
+{% block title %}
+   Training management
+{% endblock %}
+{% block content %}
+<!-- code in here to display a list of members-->
+<div style="margin: 50px 50px 250px;">
+    <div>
+        <div class="col-auto">
+            <h5>Training management</h2>
+        </div>
+        <div class="row col-12">
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th>Name</th>
+                    <th>Trainee</th>
+                    <th>Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Fee</th>
+                    <th>
+                        <form method="get" action="/addtrainingsession">
+                            <button type="submit" class="btn btn-primary">Add </button>
+                        </form>
+                    </th>
+                </tr>
+                {% for training in mytraininglist %}
+                    <tr>
+                        <td>{{training[1]}}</td>
+                        <td>{{training[2]}}</td>
+                        <td>{{training[3]}}</td>
+                        <td>{{training[4]}}</td>
+                        <td>{{training[5]}}</td>
+                        <td>{{training[6]}}</td>
+                        <td>
+                            <!-- Button trigger modal -->
+                          <form method="post" action="/canceltrainingsession">
+                            <input type="hidden" name="trainingid" value="{{training[0]}}">
+                            <button type="submit" class="btn btn-primary">Cancel</button>
+                        </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

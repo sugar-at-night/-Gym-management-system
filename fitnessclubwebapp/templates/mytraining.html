@@ -1,0 +1,50 @@
+<!-- ####### FITNESS MANAGEMENT SYSTEM #######
+#################################################### -->
+
+{% extends "base.html" %}
+{% block title %}
+    My Training list
+{% endblock %}
+{% block content %}
+<!-- code in here to display a list of members-->
+<div style="margin: 50px 50px 250px;">
+    <div>
+        <div class="col-auto">
+            <h5>My Training</h2>
+        </div>
+        {% if error %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <div class="flash mt-3 d-flex aligns-items-center justify-content-center">{{ error }}</div>
+        <button type="button" class="btn-close" data-mdb-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+        <div class="row col-12">
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th>Name</th>
+                    <th>Trainer</th>
+                    <th>Date</th>
+                    <th>Start</th>
+                    <th>End</th>
+                </tr>
+                {% for program in programlist %}
+                    <tr>
+                        <td>{{program[1]}}</td>
+                        <td>{{program[2]}}</td>
+                        <td>{{program[3]}}</td>
+                        <td>{{program[4]}}</td>
+                        <td>{{program[5]}}</td>
+                        <td>
+                            <form method="post" action="/canceltraining">
+                                <input type="hidden" name="trainingid" value="{{program[0]}}">
+                                <button type="submit" class="btn btn-primary">Cancel</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

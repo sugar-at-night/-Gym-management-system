@@ -1,0 +1,146 @@
+<!-- ####### FITNESS MANAGEMENT SYSTEM #######
+#################################################### -->
+{% extends "base.html" %}
+{% block title %}
+
+{% endblock %}
+{% block content %}
+<link type="text/css" rel="stylesheet prefetch" href="https://www.addysolutions.com/address-lookup/1.6.2/css/addy.min.css">
+<div  style="margin: 50px 50px 250px;">
+    <h5>Edit Member</h5>
+    <div>
+        <form class="row g-3 needs-validation" novalidate action="/updatemember" method="post">
+            <!--list member details-->
+            <div class="col-md-5">
+                <label for="firstname" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="firstname" name="firstname" value="{{member[0]}}" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-5">
+                <label for="lastname" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="lastname" name="lastname" value="{{member[1]}}"required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-2">
+                <label for="dateofbirth" class="form-label">Date of Birth</label>
+                <input type="date" class="form-control" id="dateofbirth" name="dateofbirth" value="{{member[2]}}"required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="streetaddress" class="form-label">Street Address</label>
+                <input type="text" class="form-control" id="streetaddress" name="streetaddress" value="{{member[3]}}" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="state" class="form-label">State</label>
+                <input type="text" class="form-control" id="state" name="state" value="{{member[4]}}" required readonly>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="postalcode" class="form-label">Postal Code</label>
+                <input type="text" class="form-control" id="postalcode" name="postalcode" value="{{member[5]}}" required readonly>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="city" class="form-label">City</label>
+                <input type="text" class="form-control" id="city" name="city" value="{{member[6]}}"required readonly>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{member[7]}}"required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="text" class="form-control" id="phone" name="phone" value="{{member[8]}}"required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            
+             <div class="row mt-3">
+                <div class="col-md-3">
+                    <input type="hidden" name="memberid" value="{{member[9]}}">
+                    <button type="Save" class="btn btn-primary">Save</button>
+                </div>
+             </div>
+        </form>     
+       </div>  
+        <form action="/cancel" >
+            <div class="row mt-3">
+                <div class="col-md-3">
+                    <button type="Cancel" class="btn btn-primary">Cancel</button>
+                </div>
+             </div>
+        </form> 
+    
+    
+</div>
+
+{% endblock %}
+{% block scripts %}
+<!-- Load Addy Solutions address lookup library -->
+<script src="https://www.addysolutions.com/address-lookup/1.6.2/js/addy.min.js?nzKey=251f988c95764912a874e2c7a2aac9fa&country=nz&callback=initAddy&excludePostBox=false&maxItems=10" async defer></script>
+<script>
+  // Callback function to initialize the address lookup library
+  function initAddy() {
+    // Create new instance of AddyComplete and set fields property
+    var addyComplete = new AddyComplete(document.getElementById("streetaddress"));
+    addyComplete.fields = {
+      address1: document.getElementById("streetaddress"),
+      suburb: document.getElementById("state"),
+      city: document.getElementById("city"),
+      postcode: document.getElementById("postalcode")
+    };
+  }
+
+  // Set max date for date of birth field
+  $(function () {
+    var dtToday = new Date();
+    var month = dtToday.getMonth() + 1;
+    var day = dtToday.getDate();
+    var year = dtToday.getFullYear() - 18;
+    if (month < 10) month = '0' + month.toString();
+    if (day < 10) day = '0' + day.toString();
+    var maxDate = year + '-' + month + '-' + day;
+    $('#dateofbirth').attr('max', maxDate);
+  });
+
+  // Apply Bootstrap validation styles to forms
+  (function () {
+    'use strict';
+    var forms = document.querySelectorAll('.needs-validation');
+    Array.prototype.slice.call(forms).forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  })();
+</script>
+{{super()}}
+{% endblock %}
+
+
+
+

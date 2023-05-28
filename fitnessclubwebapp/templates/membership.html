@@ -1,0 +1,187 @@
+<!-- ####### FITNESS MANAGEMENT SYSTEM #######
+#################################################### -->
+
+{% extends "base.html" %}
+{% block title %}
+    MY MEMBERSHIP
+{% endblock %}
+{% block content %}
+<!-- code in here to display a list of members-->
+<div style="margin: 50px 50px 250px;">
+    <h5>My Membership</h2>
+
+    <div class="form-group" >
+        <label for="duedate" class="form-label">Membership Due Date</label>
+        <input type="text" class="form-control" id="membership" name="membership" value="{{duedate}}" readonly>
+    </div>    
+
+   <!--<form class="row g-3 needs-validation" novalidate action="/membershiprenew" method="get">
+        <div class="row mt-3">
+            <div class="col-md-3">
+                <button type="Save" class="btn btn-primary">Renew</button>
+            </div>
+         </div>
+    </form> --> 
+
+    <button style="margin: 20px 0px;" type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
+        Renew
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Payment Details</h1>
+            <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>           
+            </div>
+            <form method="post" action="/updatemembership">
+            <div class="modal-body">
+                <div class="container p-0">
+                    <div class="card px-4">
+                        <div class="row gx-3">
+                            <div class="col-4"></div>
+                                                    <div class="col-2">
+                                                        <img class="img-fluid" src="https://img.icons8.com/color/48/000000/mastercard-logo.png" />
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <img class="img-fluid" src="https://img.icons8.com/color/48/000000/visa.png" />
+                                                    </div>
+                            <div class="col-4"></div>                         
+                            <div class="col-12">
+                                <label for="cardholdername" class=" text mb-1 form-label">Person Name</label>
+                                <input class="form-control mb-3" id="name" name="cardholdername" minlength="3" type="text" placeholder="Name" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="cardnumber" class=" text mb-1 mt-2 form-label">Card Number</label>
+                                <input class="form-control mb-3" id="cardnumber" pattern=".{19,}" maxlength="19" placeholder="xxxx xxxx xxxx xxxx" name="cardnumber" type="text" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label for="expirydate" class=" text mb-1 mt-2 form-label">Expiry</label>
+                                <input class="form-control mb-3" id="expirydate" pattern=".{5,}" name="expirydate" type="text" placeholder="MM/YY" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label for="cvc" class=" text mb-1 mt-2 form-label">CVV/CVC</label>
+                                <input class="form-control mb-3 pt-2" id="cvc" pattern=".{3,}" name="cvc" type="password" placeholder="***" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-flex flex-column">
+                                    <p class="text mb-1">Amount</p>
+                                    <input type="text" name="paymentamount" value="19.9" readonly>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group" style="display: flex">
+                                    <button type="submit" id="paymembership" class="btn btn-primary">Pay</button>
+                                    <button class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </form>
+        </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script>
+(() => {
+  'use strict';
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation');
+
+  // submit button
+  const submitButton = document.getElementById("paymembership");
+
+  const cardNumber = document.getElementById("cardnumber");
+  const expirydate = document.getElementById("expirydate");
+  const cvc = document.getElementById("cvc");
+
+  cvc.oninput = (e) => {
+    e.target.value = patternMatch({
+        input: e.target.value,
+        template: "xxx"
+    });
+};
+
+expirydate.oninput = (e) => {
+    e.target.value = patternMatch({
+        input: e.target.value,
+        template: "xx/xx"
+    });
+};
+
+  cardNumber.oninput = (e) => {
+    e.target.value = patternMatch({
+        input: e.target.value,
+        template: "xxxx xxxx xxxx xxxx"
+    });
+};
+
+function patternMatch({ input, template }) {
+    try {
+        let j = 0;
+        let plaintext = "";
+        let countj = 0;
+        while (j < template.length) {
+        if (countj > input.length - 1) {
+            template = template.substring(0, j);
+            break;
+        }
+
+        if (template[j] == input[j]) {
+            j++;
+            countj++;
+            continue;
+        }
+
+        if (template[j] == "x") {
+            template =
+            template.substring(0, j) + input[countj] + template.substring(j + 1);
+            plaintext = plaintext + input[countj];
+            countj++;
+        }
+        j++;
+        }
+        return template;
+    } catch {
+        return "";
+    }
+}
+
+
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+  
+})();
+</script>
+{{super()}}
+{% endblock %}

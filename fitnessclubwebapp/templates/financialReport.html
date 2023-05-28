@@ -1,0 +1,107 @@
+<!-- ####### FITNESS MANAGEMENT SYSTEM #######
+#################################################### -->
+
+{% extends "base.html" %}
+{% block title %}
+    FinancialReport
+{% endblock %}
+{% block content %}
+    <!-- code in here to display a list of members-->
+    <div class="container" style="margin: 50px 50px 250px;">
+        <div class="row mt-5 ms-1">
+            <div class="chart col-5 ms-5" id="chart-left" style="height: 300px;"></div>
+            <div class="chart col-5 offset-1" id="chart-right" style="height: 300px;">
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugins/echarts/echarts.min.js') }}"></script>
+    <script>
+        $(function () {
+            load_charts();
+        })
+
+        function load_charts() {
+            let year = $('#year option:selected').val()
+            let month = $('#month option:selected').val()
+            // left chart
+            var myChart = echarts.init(document.getElementById('chart-left'));
+            // right chart
+            var myChart2 = echarts.init(document.getElementById('chart-right'));
+            $.ajax({
+                url: '/reportInfo'
+                , method: 'get'
+                , dataType: 'json'
+                , success: function (res) {
+                    if (res) {
+                        // 渲染图表
+                        var option = {
+                            title: {
+                                text: 'Number of membership',
+                                left: 'center'
+                            },
+                            tooltip: {
+                                trigger: 'item'
+                            },
+                            legend: {
+                                orient: 'vertical',
+                                left: 'left'
+                            },
+                            series: [
+                                {
+                                    name: 'Total membership',
+                                    type: 'pie',
+                                    radius: '50%',
+                                    data: res.left,
+                                    emphasis: {
+                                        itemStyle: {
+                                            shadowBlur: 10,
+                                            shadowOffsetX: 0,
+                                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                        }
+                                    }
+                                }
+                            ]
+                        };
+                        myChart.setOption(option);
+
+                        var option2 = {
+                            title: {
+                                text: 'Constitute of income',
+                                left: 'center'
+                            },
+                            tooltip: {
+                                trigger: 'item'
+                            },
+                            legend: {
+                                orient: 'vertical',
+                                left: 'left'
+                            },
+                            series: [
+                                {
+                                    name: 'Income',
+                                    type: 'pie',
+                                    radius: '50%',
+                                    data: res.right,
+                                    emphasis: {
+                                        itemStyle: {
+                                            shadowBlur: 10,
+                                            shadowOffsetX: 0,
+                                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                        }
+                                    }
+                                }
+                            ]
+                        };
+                        myChart2.setOption(option2);
+                    }
+                }
+            })
+        }
+
+    </script>
+{% endblock %}

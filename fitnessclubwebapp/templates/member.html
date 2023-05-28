@@ -1,0 +1,75 @@
+ <!-- ####### FITNESS MANAGEMENT SYSTEM #######
+#################################################### -->
+
+{% extends "base.html" %}
+{% block title %}
+    Member list
+{% endblock %}
+{% block content %}
+<!-- code in here to display a list of members-->
+<div style="margin: 50px 50px 250px;">
+    <div>
+        <div class="col-auto">
+            <h5>Manage Member</h2>
+        </div>
+        <div class="row col-12">
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th>User Name</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Date of Birth</th>
+                    <th>Street Address</th>
+                    <th>State</th>
+                    <th>Postal Code</th>
+                    <th>City</th>
+                    <th>Phone</th>
+                    <th>Membership Type</th>
+                    <th>Membership Status</th>
+                    <th>
+                        {% if session['role'] == 'Admin' or session['role'] == 'Manager': %}
+                        <form method="get" action="/addmember">
+                            <button type="submit" class="btn btn-primary">Add</button>
+                        </form>
+                        {% endif %} 
+                    </th>
+                </tr>
+                {% for member in memberlist %}
+                    <tr>
+                        <td>{{member[0]}}</td>
+                        <td>{{member[1]}}</td>
+                        <td>{{member[2]}}</td>
+                        <td>{{member[3]}}</td>
+                        <td>{{member[4]}}</td>
+                        <td>{{member[5]}}</td>
+                        <td>{{member[6]}}</td>
+                        <td>{{member[7]}}</td>
+                        <td>{{member[8]}}</td>
+                        <td>{{member[9]}}</td>
+                        <td>
+                            {% if member[10] == 'Active': %}
+                            <span class="badge badge-success rounded-pill d-inline">Active</span>
+                            {% else %}
+                            <span class="badge badge-warning rounded-pill d-inline">Inactive</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <form method="post" action="/memberdetails">
+                                <input type="hidden" name="memberid" value="{{member[0]}}">
+                                <button type="submit" class="btn btn-primary">Edit</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="get" action="/Inactive">
+                                <input type="hidden" name="memberid" value="{{member[0]}}">
+                                <button type="submit" class="btn btn-primary">Change Status</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+<!-- ####### FITNESS MANAGEMENT SYSTEM #######
+#################################################### -->
+
+{% extends "base.html" %}
+{% block title %}
+    Attendance Record
+{% endblock %}
+{% block content %}
+<!-- code in here to display a list of members-->
+<div  style="margin: 50px 50px 250px;">
+    <div>
+        <div class="col-auto">
+            <h5>Attendance Record</h5>
+        </div>
+        <div class="row col-12">
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Attendance Type</th>
+                    <th>Date</th>
+                    <th>Time Start</th>
+                    <th>Time End</th>
+                    <th>Training Session Record</th>
+                </tr>
+                {% for attendance in attendancelist %}
+                    <tr>
+                        {% for entry in attendance %}
+                            {% if loop.index == 1 %}
+                                <!-- Nothing to skip member id -->
+                            {% else %}
+                                <td>{{entry}}</td>
+                            {% endif %}
+                        {% endfor %}
+                        <td>
+                            <form method="post" action="/trainingsession">
+                                <input type="hidden" name="memberid" value="{{attendance[0]}}">
+                                <button type="submit" class="btn btn-primary">View</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+<!-- ####### FITNESS MANAGEMENT SYSTEM #######
+#################################################### -->
+
+{% extends "base.html" %}
+{% block title %}
+    Training Session Record
+{% endblock %}
+{% block content %}
+<!-- code in here to display a list of members-->
+<div style="margin: 50px 50px 250px;">
+    <div>
+        <div class="col-auto">
+            <h5>Training Session Record</h5>
+        </div>
+        <div class="row col-12">
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th>Trainee's First Name</th>
+                    <th>Trainee's Last Name</th>
+                    <th>Training Name</th>
+                    <th>Trainer's First Name</th>
+                    <th>Trainer's Last Name</th>
+                    <th>Training Amount</th>
+                    <th>Training Date</th>
+                    <th>Training Time Start</th>
+                    <th>Training Time End</th>
+                </tr>
+                {% for trainingsession in trainingsessionlist %}
+                    <tr>
+                        {% for entry in trainingsession %}
+                            <td>{{entry}}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

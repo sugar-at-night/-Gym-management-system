@@ -1,0 +1,227 @@
+<!-- ####### FITNESS LIBRARY MANAGEMENT SYSTEM #######
+#################################################### -->
+
+{% extends "base.html" %}
+{% block messages %}
+{% endblock %}
+{% block title %}
+{% endblock %}
+
+{% block content %}
+<!-- my own css -->
+<link rel="stylesheet" href="../static/style.css">
+<!-- bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"
+crossorigin="anonymous">
+
+<!-- code in here to display the landing page of the application-->
+<div id="index">
+
+  <section id="head" class="section-bg">
+    <div class="overlay">
+      <div class="tittle">
+        <h5>LINCOLN FITNESS CLUB</h5>
+        <h1>THE BEST GYM IN LINCOLN</h1>
+      </div>
+      <div class="section-overlay">
+        <h5>WORK TOWARDS BEING THE STRONGEST VERSION OF YOURSELF</h5>
+        <p>We have comprehensive strength and fitness programmes in place, to help each and every client enhance their
+          quality of life through the use of sustainable methods.
+          <br>Let us be part of your health and fitness journey and help you achieve your goals, while guiding you
+          towards becoming stronger, looking leaner and maintaining a healthy body.
+          <br>Get in touch with us today!</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- intro of environment -->
+  <section class="equipments">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4 mb-md-0 d-flex align-items-center">
+          <img src="../static/images/equipment3.jpg" alt="Equipment 1" />
+        </div>
+        <div class="col-md-8 d-flex">
+          <div>
+            <h3 style="padding-bottom: 30px;">Our Equipments</h3>
+            <p>Our gym is designed to inspire and motivate you to achieve your fitness goals, whatever they may be. With
+              our state-of-the-art equipment and cutting-edge facilities, you'll have everything you need to elevate
+              your workout experience and take your fitness to the next level.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 d-flex align-items-center">
+          <img src="../static/images/equipment2.jpg" alt="Equipment 2" />
+        </div>
+        <div class="col-md-4 d-flex align-items-center">
+          <img src="../static/images/equipment1.jpg" alt="Equipment 3" />
+        </div>
+        <div class="col-md-4 d-flex">
+          <div>
+            <h3 style="padding-bottom: 30px;">Cleanliness</h3>
+            <p>Cleanliness is also a top priority in our gym. We take every measure to ensure that our workout
+              environment is a safe and hygienic space for all of our members. With our commitment to cleanliness, you
+              can focus on your workout with confidence and peace of mind.
+              <br>Come experience the energy and excitement of our workout environment today!
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- fitness programs -->
+  <section class="fitness-programs">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 flex-column">
+          <h2 class="section-title"><a href="{{ url_for('classdetails') }}">Group Classes</a></h2>
+          <div class="col-md-4 mb-4">
+            <img src="../static/images/group1.jpg" alt="Group Class 1" />
+          </div>
+          <div class="col-md-4 mb-4">
+            <img src="../static/images/group2.jpg" alt="Group Class 2" />
+          </div>
+          <div class="col-md-4 mb-4">
+            <img src="../static/images/group3.jpg" alt="Group Class 3" />
+          </div>
+        </div>
+        <div class="col-md-6 flex-column">
+          <h2 class="section-title"><a href="{{ url_for('training') }}">Personal Training</a></h2>
+          <div class="col-md-4 mb-4">
+            <img src="../static/images/training1.jpg" alt="Personal Training 1" />
+          </div>
+          <div class="col-md-4 mb-4">
+            <img src="../static/images/training2.jpg" alt="Personal Training 2" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- trainer -->
+  <section id="personal-trainers">
+    <div class="container">
+      <h2 class="section-title">MEET OUR QUALIFIED PERSONAL TRAINER</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card">
+            <img class="card-img-top" src="../static/images/trainer1.jpg" alt="Personal Trainer 1">
+            <div class="card-body">
+              <h5 class="card-title">Jack Brown</h5>
+              <p class="card-text">Certified Personal Trainer</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <img class="card-img-top" src="../static/images/trainer2.jpg" alt="Personal Trainer 2">
+            <div class="card-body">
+              <h5 class="card-title">Jane Smith</h5>
+              <p class="card-text">Certified Personal Trainer</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <img class="card-img-top" src="../static/images/trainer3.jpg" alt="Personal Trainer 3">
+            <div class="card-body">
+              <h5 class="card-title">Jacueqline Johnson</h5>
+              <p class="card-text">Certified Personal Trainer</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- testimonial -->
+  <section class="testimonial">
+    <div class="row">
+      <div class="col-12">
+        <div class="testimonial-title">
+          <i class="fas fa-quote-left"></i>
+          <h3>WHAT THEY SAY ABOUT US</h3>
+          <i class="fas fa-quote-right"></i>
+        </div>
+      </div>
+    </div>
+    <div id="testimonials-carousel" class="carousel slide" data-bs-ride="carousel" data-mdb-interval="1000">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="testimonial">
+            <p>"I've been going to this gym for a few months now and I couldn't be happier with my progress. The
+              trainers are knowledgeable and the equipment is top-notch. Highly recommend!"</p>
+            <h5>John Smith</h5>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="testimonial">
+            <p>"I've tried a lot of gyms over the years, but this one really stands out. The staff is friendly and the
+              classes are challenging but fun. Plus, the facilities are always clean and well-maintained."</p>
+            <h5>Jane Doe</h5>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="testimonial">
+            <p>"I was nervous about joining a gym for the first time, but the team at this fitness club made me feel
+              welcome and supported from day one. I've already seen improvements in my fitness level and I can't wait to
+              see what's next!"</p>
+            <h5>Mike Johnson</h5>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#testimonials-carousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#testimonials-carousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- contact me button -->
+  <div class="floating-icon">
+    <a href="#qa_area"><i class="fa fa-comments"></i></a>
+  </div>
+
+  <!-- consult area  -->
+  <section class="qa_area" id="qa_area">
+    <div class="qa_container">
+      <div class="qa_intro">
+        <h2 class="qa_tittle">
+          GET IN TOUCH WITH US NOW
+        </h2>
+        <div class="qa_words">
+          <p><i class="fas fa-map-marker-alt"></i> Ellesmere Junction Road Lincoln 7647, Canterbury</p>
+          <p><i class="fas fa-phone"></i> +64 3 423 0000</p>
+          <p><i class="fas fa-envelope"></i> info@fitnessclub.com</p>
+          <p><i class="fas fa-clock"></i> Mon - Sunday: 6:30am to 9pm</p>
+        </div>
+      </div>
+      <div class="qa_form">
+        <form action="/contact" method="post">
+          <label for="name">Your Name:</label>
+          <input class="qa_input form-control" type="text" name="qa_name" required>
+          <label for="email">Your Email:</label>
+          <input class="qa_input form-control" type="email" name="qa_email" required>
+          <label for="subject">Subject:</label>
+          <input class="qa_input form-control" type="text" name="qa_subject" required>
+          <label for="message">Your Message:</label>
+          <textarea class="qa_input form-control" name="qa_message" required></textarea>
+          <button type="submit" class="submit_btn col-12">Submit</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</div>
+{% endblock %}
